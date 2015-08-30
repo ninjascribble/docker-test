@@ -12,14 +12,12 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
   end
 
-  # config.vm.provider :docker
-
   config.vm.provision :docker do |d|
+    
+    d.build_image "/var/src/docker/node", args: "-t service1"
+    d.run "service1", args: "-it -p 8001:8888 -v /var/src/service1:/app"
 
-    d.build_image "/var/src/service1", args: "-t service1"
-    d.run "service1", args: "-it -p 8001:8888"
-
-    d.build_image "/var/src/service2", args: "-t service2"
-    d.run "service2", args: "-it -p 8002:8888"
+    d.build_image "/var/src/docker/node", args: "-t service2"
+    d.run "service2", args: "-it -p 8002:8888 -v /var/src/service2:/app"
   end
 end
