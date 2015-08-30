@@ -4,10 +4,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = "http://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
   config.vm.network :forwarded_port, guest: 8001, host: 8001
   config.vm.network :forwarded_port, guest: 8002, host: 8002
-
-  config.vm.network :private_network, type: "dhcp"
   config.vm.synced_folder "", "/vagrant", disabled: true
-  config.vm.synced_folder "", "/var/src", nfs: true
+  config.vm.synced_folder "", "/var/src"
 
   config.vm.provider :virtualbox do |v|
     v.memory = 1024
