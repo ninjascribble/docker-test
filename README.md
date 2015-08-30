@@ -28,13 +28,13 @@ use nodemon at all. Unfortunately that means (for now at least)
 that the container has to be manually restarted with every file change.
 
 ### TODO
-[ ] Figure out the pros and cons of sharing Docker images between applications
+- [ ] Figure out the pros and cons of sharing Docker images between applications
 vs. dedicated Docker images for each application. I'm leaning towards the latter.
-[ ] Find a way to speed up the initial build of a dev environment.
+- [ ] Find a way to speed up the initial build of a dev environment.
 Right now it's super slooooooow.
-[ ] Find a better logging strategy.
-[ ] Use docker-compose instead of Vagrant's docker provisioner.
-[ ] Add some other services (e.g. nginx, redis and postgres)
-[ ] Figure out how per-environment configuration can work, and
+- [ ] Find a better logging strategy.
+- [ ] Use docker-compose instead of Vagrant's docker provisioner.
+- [ ] Add some other services (e.g. nginx, redis and postgres)
+- [ ] Figure out how per-environment configuration can work, and
 how managed services (e.g. RDS, ElasticCache) might fit into the mix.
 
