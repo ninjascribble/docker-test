@@ -26,6 +26,13 @@ $ vagrant up
 
 It might ask you for your sudo password while it sets up the filesystem, otherwise go make some popcorn while it provisions your new machine.
 
+**Note:** The Docker installer runs `apt-get update` which may break VBox Guest Additions. To keep everything working smoothly [you might want to install the `vagrant-vbguest` plugin](https://github.com/dotless-de/vagrant-vbguest):
+
+```
+$ vagrant plugin install vagrant-vbguest
+$ vagrant reload
+```
+
 ### Service 1
 
 Default: [http://localhost:8001](http://localhost:8001)
@@ -48,7 +55,7 @@ vs. dedicated Docker images for each application. I'm leaning towards the latter
 - [ ] Find a way to speed up the initial build of a dev environment.
 Right now it's super slooooooow.
 - [ ] Find a better logging strategy.
-- [ ] Use docker-compose instead of Vagrant's docker provisioner.
+- [x] Use docker-compose instead of Vagrant's docker provisioner.
 - [ ] Add some other services (e.g. nginx, redis and postgres)
 - [ ] Figure out how per-environment configuration can work, and
 how managed services (e.g. RDS, ElasticCache) might fit into the mix.

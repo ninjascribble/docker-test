@@ -16,34 +16,17 @@ Vagrant.configure("2") do |config|
 
     s.inline = <<-heredoc
 
-        # TODO: Installing docker via the provisioner
-        #   is remarkably slow. Also, no vagrant support
-        #   for docker-container without a plugin. shell
-        #   provisioning instead?
-        # apt-get update
-        # apt-get install -y --no-install-recommends docker
-
-        if which docker; then
-          echo 'Stopping all running containers'
-          docker stop $(docker ps -a -q) || echo 'No running containers to stop'
-          echo 'Removing all known containers'
-          docker rm $(docker ps -a -q) || echo 'No containers to remove'
+        if ! which docker; then
+          curl -sSL https://get.docker.com/ | sh
         fi
+
+        if ! which docker-compose; then
+          curl -L https://github.com/docker/compose/releases/download/1.4.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+        fi
+
+        cd /var/src
+        docker-compose up -d
       heredoc
-  end
-
-  config.vm.provision :docker do |d|
-    
-    # All of this would be better suited to docker-compose
-    d.build_image "/var/src/docker/node", args: "-t node"
-
-    d.run "service1",
-      image: "node",
-      args: "-it -p 8001:8888 -v /var/src/service1:/var/src",
-      cmd: "dev"
-
-    d.run "service2",
-      image: "node",
-      args: "-it -p 8002:8888 -v /var/src/service2:/var/src"
   end
 end

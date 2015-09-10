@@ -4,7 +4,7 @@ var app = express();
 
 app.get('/', function(req, res) {
 	res.status(200);
-	res.send('Hello from service 1');
+	res.send('Hello from service NUMBER ONE');
 });
 
 app.get('/exit/:code', function(req, res) {

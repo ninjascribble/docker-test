@@ -1,0 +1,16 @@
+service1:
+  build: ./docker/node
+  command: dev
+  ports:
+    - "8001:8888"
+  volumes:
+    - /var/src/service1:/var/src
+    - /etc/localtime:/etc/localtime
+service2:
+  build: ./docker/node
+  command: start
+  ports:
+    - "8002:8888"
+  volumes:
+    - /var/src/service2:/var/src
+    - /etc/localtime:/etc/localtime
