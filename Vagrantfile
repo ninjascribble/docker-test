@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
 
         if ! which docker; then
           curl -sSL https://get.docker.com/ | sh
+          useradd -G docker vagrant
         fi
 
         if ! which docker-compose; then
