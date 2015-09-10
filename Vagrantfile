@@ -18,7 +18,6 @@ Vagrant.configure("2") do |config|
 
         if ! which docker; then
           curl -sSL https://get.docker.com/ | sh
-          useradd -G docker vagrant
         fi
 
         if ! which docker-compose; then
@@ -26,7 +25,12 @@ Vagrant.configure("2") do |config|
           chmod +x /usr/local/bin/docker-compose
         fi
 
+        if ! groups | grep docker; then
+          useradd -G docker vagrant
+        fi
+
         cd /var/src
+        docker-compose build
         docker-compose up -d
       heredoc
   end
