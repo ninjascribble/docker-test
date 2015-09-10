@@ -1,4 +1,5 @@
 service1:
+  restart: always
   build: ./docker/node
   command: dev
   ports:
@@ -7,6 +8,7 @@ service1:
     - /var/src/service1:/var/src
     - /etc/localtime:/etc/localtime
 service2:
+  restart: always
   build: ./docker/node
   command: start
   ports:
