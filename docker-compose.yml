@@ -7,6 +7,7 @@ service1:
   volumes:
     - /var/src/service1:/var/src
     - /etc/localtime:/etc/localtime
+
 service2:
   restart: always
   build: ./docker/node
