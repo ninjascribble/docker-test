@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "", "/var/src", type: "rsync", rsync__exclude: ".git/"
 
   config.vm.provider :virtualbox do |v|
+    v.customize ["modifyvm", :id, "--nictype1", "virtio"]
     v.memory = 1024
     v.cpus = 2
   end
