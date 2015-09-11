@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.network :forwarded_port, guest: 8001, host: 8001
   config.vm.network :forwarded_port, guest: 8002, host: 8002
   config.vm.synced_folder "", "/vagrant", disabled: true
-  config.vm.synced_folder "", "/var/src"
+  config.vm.synced_folder "", "/var/src", type: "rsync", rsync__exclude: ".git/"
 
   config.vm.provider :virtualbox do |v|
     v.memory = 1024
@@ -27,12 +27,12 @@ Vagrant.configure("2") do |config|
         fi
 
         if ! groups | grep docker; then
-          useradd -G docker vagrant
+          usermod -a -G docker vagrant
         fi
 
         cd /var/src
-        docker-compose build
-        docker-compose up -d
+        docker-compose up -d --force-recreate
+        echo "done"
       heredoc
   end
 end
