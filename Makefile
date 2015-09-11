@@ -1,19 +1,10 @@
-default: start clean build test deploy
-
-start: vagrant.up
+default: clean build test
 
 clean: service1.clean
 
 build: service1.build
 
 test: service1.test
-
-deploy: vagrant.copy vagrant.provision
-
-watch:
-	fswatch -o ./service1/*.js | xargs -n1 -I{} make test deploy
-
-stop: vagrant.halt
 
 service1.clean:
 	-rm -rf service1/node_modules
@@ -27,17 +18,17 @@ service1.test:
 service1.start:
 	cd ./service1; npm run start
 
-vagrant.up:
+dev: dev.start clean build test dev.deploy
+
+dev.start:
 	vagrant up
 
-vagrant.provision:
-	vagrant provision
-
-vagrant.reload:
-	vagrant reload
-
-vagrant.halt:
+dev.stop:
 	vagrant halt
 
-vagrant.copy:
+dev.deploy:
 	vagrant rsync
+	vagrant provision
+
+dev.watch:
+	fswatch -o ./service1/*.js | xargs -n1 -I{} $(MAKE) test dev.deploy
