@@ -21,10 +21,8 @@ Download [Virtualbox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](h
 ```
 $ git clone https://github.com/ninjascribble/docker-test.git /path/to/project
 $ cd /path/to/project
-$ vagrant up
+$ make dev
 ```
-
-It might ask you for your sudo password while it sets up the filesystem, otherwise go make some popcorn while it provisions your new machine.
 
 **Note:** The Docker installer runs `apt-get update` which may break VBox Guest Additions. To keep everything working smoothly [you might want to install the `vagrant-vbguest` plugin](https://github.com/dotless-de/vagrant-vbguest):
 
@@ -40,14 +38,6 @@ Default: [http://localhost:8001](http://localhost:8001)
 This service uses nodemon to monitor filesystem changes and restart
 the application. Nodemon is configured to allow docker to manage
 restarting the application or container when the service crashes.
-
-### Service 2
-
-Default: [http://localhost:8002](http://localhost:8002)
-
-This service uses the same docker image as Service 1, but does not
-use nodemon at all. Unfortunately that means (for now at least)
-that the container has to be manually restarted with every file change.
 
 ### TODO
 - [ ] Figure out the pros and cons of sharing Docker images between applications
