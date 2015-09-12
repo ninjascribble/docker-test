@@ -1,16 +1,9 @@
 var util = require('util');
 var express = require('express');
+var routes = require('./src/routes');
 var app = express();
 
-app.get('/', function(req, res) {
-	res.status(200);
-	res.send('Hello from service 1...');
-});
-
-app.get('/exit/:code', function(req, res) {
-	console.log('Exiting with code: ', req.params.code);
-	process.exit(req.params.code);
-});
+app.use(routes);
 
 app.listen(8888, function() {
   var info = this.address();

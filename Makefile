@@ -4,7 +4,13 @@ clean: service1.clean
 
 build: service1.build
 
-test: service1.test
+test: clearscreen timestamp service1.test
+
+clearscreen:
+	@clear
+
+timestamp:
+	@date
 
 service1.clean:
 	-rm -rf service1/node_modules
@@ -30,5 +36,13 @@ dev.deploy:
 	vagrant rsync
 	vagrant provision
 
-dev.watch:
-	fswatch -o ./service1/*.js | xargs -n1 -I{} $(MAKE) test dev.deploy
+dev.watch.test:
+	@echo "Watching ./service1/**/*.js... (run tests)"
+	@fswatch -rot -e "*" -i "*.js" ./service1 | xargs -n1 -I{} $(MAKE) test
+
+dev.watch.deploy:
+	@echo "Watching ./service1/**/*.js... (run tests and deploy)"
+	@fswatch -rot -e "*" -i "*.js" ./service1 | xargs -n1 -I{} $(MAKE) test dev.deploy
+
+.PHONY: default clean build test clearscreen timestamp service1.clean service1.build \
+	service1.test service1.start dev dev.start dev.deploy dev.watch.test dev.watch.deploy
